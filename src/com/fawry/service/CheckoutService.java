@@ -19,14 +19,10 @@ public class CheckoutService {
         List<CartItem> items = cart.getItems();
         double subtotal = 0;
         List<Shippable> shippableItems = new ArrayList<>();
-        System.out.println("** Checkout receipt **");
-
         for (CartItem item : items) {
             Product product = item.getProduct();
             int quantity = item.getQuantity();
             double lineTotal = product.getPrice() * quantity;
-
-            System.out.printf("%dx %s %.0f%n",quantity,product.getName(),lineTotal);
             subtotal += lineTotal;
 
             if (product.isShippable() && product instanceof Shippable) {
@@ -44,15 +40,23 @@ public class CheckoutService {
             return;
         }
         customer.pay(total);
+
         if (!shippableItems.isEmpty()) {
-            System.out.println();
             shippingService.ship(shippableItems);
             System.out.println();
         }
+
+        System.out.println("** Checkout receipt **");
+        for (CartItem item : items) {
+            Product product = item.getProduct();
+            int quantity = item.getQuantity();
+            double lineTotal = product.getPrice() * quantity;
+            System.out.printf("%dx %-10s %6.0f\n",quantity,product.getName(),lineTotal);
+        }
         System.out.println("----------------------");
-        System.out.printf("Subtotal %.0f%n",subtotal);
-        System.out.printf("Shipping %.0f%n",shippingFee);
-        System.out.printf("Amount %.0f%n",total);
-        System.out.printf("Remaining Balance %.0f%n",customer.getBalance());
+        System.out.printf("%-13s %6.0f\n", "Subtotal", subtotal);
+        System.out.printf("%-13s %6.0f\n", "Shipping", shippingFee);
+        System.out.printf("%-13s %6.0f\n", "Amount", total);
+
     }
 }
