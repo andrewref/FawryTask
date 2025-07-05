@@ -2,7 +2,7 @@ package com.fawry.cart;
 
 import com.fawry.model.Product;
 
- class CartItem {
+ public class CartItem {
 
     private final Product product;
     private final int quantity;
