@@ -2,7 +2,9 @@ package com.fawry.model;
 
 import java.time.LocalDate;
 
-public class ExpirableProduct extends Product {
+import com.fawry.service.Shippable;
+
+public class ExpirableProduct extends Product implements Shippable {
     private LocalDate expiryDate;
     private double weightKg;
 
@@ -11,16 +13,19 @@ public class ExpirableProduct extends Product {
         this.expiryDate=expiryDate;
         this.weightKg=weightKg;
     }
-
     public boolean isExpired() {
         return expiryDate.isBefore(LocalDate.now());
     }
-
     public boolean isShippable() {
         return weightKg > 0;
     }
-
     public double getWeightKg() {
         return weightKg;
+    }
+    public double getWeight() {
+        return weightKg;
+    }
+    public String getName() {
+        return name;
     }
 }
