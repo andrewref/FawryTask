@@ -76,6 +76,6 @@ public class Main {
         cart7.add(tv, 1);
         cart7.add(scratchCard, 2);
         checkout.checkout(customer7, cart7);
-        System.out.println();
+        System.out.println(); 
     }
 }
